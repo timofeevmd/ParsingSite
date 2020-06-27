@@ -3,25 +3,26 @@ package objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Objects;
 
 @Entity
 @javax.persistence.Table(name = "parsing_table")
+
 public class ObjectTable {
     @Id
-    private String chto_kupit;
-    @Column
-    private Integer kolichestvo;
-    @Column
-    private Integer stoimost_kr;
-    @Column
-    private String deistvija;
+    @Column(name = "chto_kupit")
+    private String a;
+    @Column(name = "kolichestvo")
+    private Integer b;
+    @Column(name = "stoimost_kr")
+    private Integer c;
+    @Column(name = "deistvija")
+    private String d;
 
     public ObjectTable(String columnOne, Integer clumnTwo, Integer columnThree, String columnFour) {
-        this.chto_kupit = columnOne;
-        this.kolichestvo = clumnTwo;
-        this.stoimost_kr = columnThree;
-        this.deistvija = columnFour;
+        this.a = columnOne;
+        this.b = clumnTwo;
+        this.c = columnThree;
+        this.d = columnFour;
     }
 
     public ObjectTable() {
@@ -33,48 +34,48 @@ public class ObjectTable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ObjectTable that = (ObjectTable) o;
-        return chto_kupit.equals(that.chto_kupit);
+        return a.equals(that.a);
     }
 
     @Override
     public String toString() {
         return "Table{" +
-                "chto_kupit='" + chto_kupit + '\'' +
-                ", kolichestvo=" + kolichestvo +
-                ", stoimost_kr=" + stoimost_kr +
-                ", deistvija='" + deistvija + '\'' +
+                "chto_kupit='" + a + '\'' +
+                ", kolichestvo=" + b +
+                ", stoimost_kr=" + c +
+                ", deistvija='" + d + '\'' +
                 '}';
     }
 
-    public String getChto_kupit() {
-        return chto_kupit;
+    public String getA() {
+        return a;
     }
 
-    public void setChto_kupit(String chto_kupit) {
-        this.chto_kupit = chto_kupit;
+    public void setA(String a) {
+        this.a = a;
     }
 
-    public Integer getKolichestvo() {
-        return kolichestvo;
+    public Integer getB() {
+        return b;
     }
 
-    public void setKolichestvo(Integer kolichestvo) {
-        this.kolichestvo = kolichestvo;
+    public void setB(Integer b) {
+        this.b = b;
     }
 
-    public Integer getStoimost_kr() {
-        return stoimost_kr;
+    public Integer getC() {
+        return c;
     }
 
-    public void setStoimost_kr(Integer stoimost_kr) {
-        this.stoimost_kr = stoimost_kr;
+    public void setC(Integer c) {
+        this.c = c;
     }
 
-    public String getDeistvija() {
-        return deistvija;
+    public String getD() {
+        return d;
     }
 
-    public void setDeistvija(String deistvija) {
-        this.deistvija = deistvija;
+    public void setD(String d) {
+        this.d = d;
     }
 }

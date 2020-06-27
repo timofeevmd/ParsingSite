@@ -3,18 +3,16 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConnectionProperties {
+    FileInputStream fileInputStream;
 
-    FileInputStream fis;
-    Properties property = new Properties();
-
-    public void connectionProperty() {
+    public Properties parsingPropertyFile() {
+        Properties property = new Properties();
         try {
-            fis = new FileInputStream("src/main/resources/date.properties");
-            property.load(fis);
-
-        } catch (
-                IOException e) {
-            System.err.println("ERROR! File .properties is not define.");
+            fileInputStream = new FileInputStream("src/main/resources/data.properties");
+            property.load(fileInputStream);
+        } catch (IOException e) {
+            System.out.println("Error: data.properties not found.");
         }
+        return property;
     }
 }

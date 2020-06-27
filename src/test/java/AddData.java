@@ -1,7 +1,7 @@
 import objects.ObjectTable;
-import org.junit.Assert;
-import org.junit.Test;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class AddData {
     static DataBase dataBase = new DataBase();
     ActionChrome actionChrome = new ActionChrome();
     ConnectionProperties cp = new ConnectionProperties();
-    Properties property = new Properties();
+    Properties property = cp.parsingPropertyFile();
 
     String firstName = property.getProperty("addDataFirstName");
     String firstCount = property.getProperty("addDataFirstCount");
@@ -23,7 +23,6 @@ public class AddData {
 
     @Test
     public void addData(){
-    cp.connectionProperty();
     actionChrome.load();
     List<WebElement> tr = actionChrome.getTable();
     List<ObjectTable> list = dataBase.parsingAllRows(tr);
@@ -36,7 +35,6 @@ public class AddData {
     List<ObjectTable> upDateList = dataBase.parsingAllRows(upDateTr);
     Assert.assertNotEquals(objectTable, upDateList);
     upDateList.removeAll(objectTable);
-    System.out.println(upDateList);
     actionChrome.close();
     }
 }

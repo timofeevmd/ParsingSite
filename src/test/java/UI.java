@@ -1,9 +1,9 @@
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Properties;
@@ -11,16 +11,20 @@ import java.util.Properties;
 public class UI {
     ActionChrome actionChrome = new ActionChrome();
     ConnectionProperties cp = new ConnectionProperties();
-    Properties property = new Properties();
+    Properties property = cp.parsingPropertyFile();
 
     String firstName = property.getProperty("addDataFirstName");
     String firstCount = property.getProperty("addDataFirstCount");
     String firstPrice = property.getProperty("addDataFirstPrice");
-    String delete = property.getProperty("linkDelete");;
+    String delete = property.getProperty("linkDelete");
+
+@BeforeTest
+    public void initiateTest(){
+        actionChrome.load();
+    }
 
 @Test
     public void linkDelete(){
-       actionChrome.load();
         List<WebElement> tr = actionChrome.getTable();
         for(int i=tr.size()-1; i>=0; i--) {
             tr = actionChrome.getTable();
@@ -28,31 +32,29 @@ public class UI {
             we.click();
         }
         tr = actionChrome.getTable();
-        actionChrome.close();
-        Assert.assertTrue("Table is empty",tr.isEmpty());
+        Assert.assertTrue(tr.isEmpty(), "Table is empty");
     }
 
 @Test
     public void addNewRow(){
-        actionChrome.load();
-        cp.connectionProperty();
         List<WebElement> tr = actionChrome.getTable();
         actionChrome.addRow(firstName, firstCount, firstPrice);
         List<WebElement> trUpDateTable = actionChrome.getTable();
-        actionChrome.close();
-        Assert.assertNotEquals("Row wos added to table.",trUpDateTable.size(), tr.size());
+        Assert.assertNotEquals(trUpDateTable.size(), tr.size(), "Row wos added to table.");
     }
 
 @Test
     public void deleteAddedRow(){
-        actionChrome.load();
-        cp.connectionProperty();
         List<WebElement> tr = actionChrome.getTable();
         actionChrome.addRow(firstName, firstCount, firstPrice);
         WebElement linkDelete = actionChrome.driver.findElement(By.xpath(delete));
         linkDelete.click();
         List<WebElement> trUpDateTable = actionChrome.getTable();
-        Assert.assertEquals("Row wos deleted to table.",trUpDateTable.size(), tr.size());
+        Assert.assertEquals(trUpDateTable.size(), tr.size(), "Row wos deleted to table.");
+    }
+
+@AfterTest
+    public void closeSession(){
         actionChrome.close();
     }
 
